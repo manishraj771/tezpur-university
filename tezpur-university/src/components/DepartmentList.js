@@ -1,17 +1,29 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const DepartmentList = () => {
+// A utility function to convert the display name to URL-friendly name
+const toUrlFriendly = (name) => name.toLowerCase().replace(/ /g, '-');
+
+const DepartmentList = ({ departments }) => {
   return (
     <div>
       <h2>Departments</h2>
       <ul>
-        <li>Computer Science</li>
-        <li>Mechanical Engineering</li>
-        <li>Electrical Engineering</li>
-        {/* Add more departments */}
+        {departments.map((department, index) => (
+          <li key={index}>
+            <Link to={`/department/${toUrlFriendly(department)}`}>
+              {department}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );
+};
+
+// The display names of the departments
+DepartmentList.defaultProps = {
+  departments: ["Computer-Science", "Mechanical-Engineering", "Electrical-Engineering", "Civil-Engineering"],
 };
 
 export default DepartmentList;
